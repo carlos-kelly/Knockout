@@ -19,7 +19,7 @@ CGFloat radiansBetweenPoints(CGPoint firstPoint, CGPoint secondPoint) {
 }
 
 CGFloat radiansToPolar(CGFloat radians) {
-    return radians + (M_PI * 0.5);
+    return radians + M_PI_2;
 }
 
 CGFloat statForLevel(NSInteger baseStat, NSInteger level) {

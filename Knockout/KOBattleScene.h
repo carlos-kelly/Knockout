@@ -9,6 +9,7 @@
 @import SpriteKit;
 
 #import "KOCharacterNode.h"
+#import "KOAttackNode.h"
 
 @interface KOBattleScene : SKScene <SKPhysicsContactDelegate>
 
@@ -16,5 +17,6 @@
 
 -(void)createPlayerCharacter:(id)sender;
 -(void)createOpponents:(id)sender;
+-(void)performAttackFromNode:(KOCharacterNode *)nodeA toNode:(KOCharacterNode *)nodeB;
 
 @end

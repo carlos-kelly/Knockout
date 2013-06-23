@@ -39,7 +39,7 @@
 }
 
 -(void)setPhysicsBodyCategory:(uint8_t)categoryBitMask collision:(uint8_t)collisionBitMask contact:(uint8_t)contactBitMask {
-    self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.frame.size.width];
+    self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.frame.size.width / 2];
     self.physicsBody.categoryBitMask = categoryBitMask;
     self.physicsBody.collisionBitMask = collisionBitMask;
     self.physicsBody.contactTestBitMask = contactBitMask;
@@ -57,29 +57,11 @@
     SKAction *rotateAction = [SKAction rotateToAngle:angle duration:0.10];
     SKAction *moveAction = [SKAction moveTo:position duration:duration];
     
+    
     [self runAction:[SKAction sequence:@[rotateAction, moveAction]]
          completion:^{
         self.isMoving = NO;
     }];
-}
-
--(void)launchAttackAtNode:(SKNode *)node; {
-    KOAttack *attack = [self.attacks firstObject];
-    SKEmitterNode *attackNode = [[attack emitter] copy];
-    
-    self.isAttacking = YES;
-    
-    [self addChild:attackNode];
-
-    [attackNode runAction:[SKAction sequence:@[[SKAction waitForDuration:1.5],
-                                               [SKAction runBlock:^{
-                                                    attackNode.particleBirthRate = 0;
-                                                }],
-                                               [SKAction waitForDuration:attackNode.particleLifetime + attackNode.particleLifetimeRange],
-                                               [SKAction removeFromParent]]]
-               completion:^{
-                   self.isAttacking = NO;
-               }];
 }
 
 @end

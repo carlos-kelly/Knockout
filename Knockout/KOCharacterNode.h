@@ -6,10 +6,11 @@
 //  Copyright (c) 2013 Carlos Paelinck. All rights reserved.
 //
 
-#import <SpriteKit/SpriteKit.h>
+
+@import SpriteKit;
+
 #import "KOSharedFunctions.h"
 #import "KOElements.h"
-#import "KOAttack.h"
 
 #define kCharacterName @"kCharacterName"
 #define kCharacterLevel @"kCharacterLevel"
@@ -34,6 +35,5 @@
 -(void)setCharacterProperties:(NSDictionary *)properties;
 -(void)setPhysicsBodyCategory:(uint8_t)categoryBitMask collision:(uint8_t)collisionBitMask contact:(uint8_t)contactBitMask;
 -(void)moveToPosition:(CGPoint)position;
--(void)launchAttackAtNode:(SKNode *)node;
 
 @end

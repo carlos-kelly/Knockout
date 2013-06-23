@@ -32,7 +32,7 @@
                                                          color:playerColor
                                                           size:playerSize];
     
-    NSArray *playerAttacks = @[ [KOAttack flamethrower] ];
+    NSArray *playerAttacks = @[  ];
     
     [self.playerNode setCharacterProperties:@{ kCharacterName: @"Carlos",
                                                kCharacterLevel: @13,
@@ -59,7 +59,7 @@
                                                                        color:opponentColor
                                                                         size:opponentSize];
     
-    NSArray *opponentAttacks = @[ [KOAttack flamethrower] ];
+    NSArray *opponentAttacks = @[  ];
     
     [opponentNode setCharacterProperties:@{ kCharacterName: @"Opponent",
                                             kCharacterLevel: @10,
@@ -67,8 +67,7 @@
                                             kCharacterAttacks: opponentAttacks }];
     
     CGFloat centerScreen = [[UIScreen mainScreen] bounds].size.width;
-    CGFloat topPoint = [[UIScreen mainScreen] bounds].size.height - 64;
-    opponentNode.position = CGPointMake(centerScreen / 2.0, topPoint);
+    opponentNode.position = CGPointMake(centerScreen / 2.0, 180);
     
     [opponentNode setPhysicsBodyCategory:KONodeTypeOpponent
                                collision:KONodeTypeBarrier | KONodeTypePlayer
@@ -84,12 +83,12 @@
             CGPoint location = [touch locationInNode:self];
             
             __block BOOL shouldPerformAttack = NO;
-            __block SKNode *targetNode = nil;
+            __block KOCharacterNode *targetNode = nil;
             
             [[self nodesAtPoint:[touch locationInNode:self]]
              enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                  KOCharacterNode *node = (KOCharacterNode *)obj;
-                 if (node.physicsBody.categoryBitMask & KONodeTypeOpponent) {
+                 if (node.physicsBody.categoryBitMask & KONodeTypePlayer) {
                      targetNode = node;
                      shouldPerformAttack = YES;
                      *stop = YES;
@@ -97,7 +96,8 @@
              }];
             
             if (shouldPerformAttack)
-                [self.playerNode launchAttackAtNode:targetNode];
+                [self performAttackFromNode:self.playerNode
+                                     toNode:targetNode];
             else
                 [self.playerNode moveToPosition:location];
     
@@ -105,8 +105,53 @@
     }
 }
 
--(void)didBeginContact:(SKPhysicsContact *)contact {
-    NSLog(@"%@", contact);
+-(void)performAttackFromNode:(KOCharacterNode *)nodeA toNode:(KOCharacterNode *)nodeB {
+    KOAttackNode *attackNode = [KOAttackNode fireAttackNode];
+    nodeA.isAttacking = YES;
+    
+    CGFloat angle = radiansToPolar(nodeA.zRotation);
+    CGFloat distance = 100.0;
+    CGPoint endPoint = CGPointMake(nodeA.position.x + distance * cosf(angle),
+                                   nodeA.position.y + distance * sinf(angle));
+    
+    attackNode.physicsBody.contactTestBitMask = nodeB.physicsBody.categoryBitMask;
+    attackNode.position = nodeA.position;
+    attackNode.zRotation = nodeA.zRotation;
+    
+    SKPhysicsBody *targetPhysicsBody = [self.physicsWorld bodyAlongRayStart:nodeA.position end:endPoint];
+    if (targetPhysicsBody) endPoint = targetPhysicsBody.node.position;
+    
+   
+
+
+    [self addChild:attackNode];
+    [attackNode runAction:[SKAction sequence:@[
+                                               [SKAction moveTo:endPoint duration:1.25],
+                                               [SKAction runBlock:^{
+                                                    attackNode.emitterNode.particleBirthRate = 0;
+                                                }],
+                                               [SKAction waitForDuration:1.0]
+                                               ]]
+               completion:^{
+                   [attackNode removeFromParent];
+                   nodeA.isAttacking = NO;
+               }];
+}
+
+-(void)didBeginContact:(SKPhysicsContact *)contact {   
+    KOCharacterNode *targetNode;
+    KOAttackNode *attackNode;
+    
+    if (contact.bodyA.contactTestBitMask < contact.bodyB.contactTestBitMask) {
+        targetNode = (KOCharacterNode *)contact.bodyA.node;
+        attackNode = (KOAttackNode *)contact.bodyB.node;
+    } else {
+        targetNode = (KOCharacterNode *)contact.bodyB.node;
+        attackNode = (KOAttackNode *)contact.bodyA.node;
+    }
+    
+    NSLog(@"targetNode: %@", targetNode);
+    NSLog(@"attackNode: %@", attackNode);
 }
 
 @end

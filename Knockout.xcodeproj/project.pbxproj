@@ -27,8 +27,8 @@
 		29838590176A307400D982FD /* KOCharacterNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2983858F176A307400D982FD /* KOCharacterNode.m */; };
 		29838594176A384200D982FD /* KOElements.m in Sources */ = {isa = PBXBuildFile; fileRef = 29838593176A384200D982FD /* KOElements.m */; };
 		29838595176A3EF100D982FD /* FlamethrowerParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2967403C17690EB900EF207D /* FlamethrowerParticle.sks */; };
-		29838598176A3F7200D982FD /* KOAttack.m in Sources */ = {isa = PBXBuildFile; fileRef = 29838597176A3F7200D982FD /* KOAttack.m */; };
 		2983859D176A718C00D982FD /* KOSharedFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2983859C176A718C00D982FD /* KOSharedFunctions.m */; };
+		299C945B1776235100380F78 /* KOAttackNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 299C945A1776235100380F78 /* KOAttackNode.m */; };
 		29D3448C176910620068C31B /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 29D3448B176910620068C31B /* spark.png */; };
 		29D3448F176914830068C31B /* KOBattleScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 29D3448E176912AD0068C31B /* KOBattleScene.m */; };
 /* End PBXBuildFile section */
@@ -72,10 +72,10 @@
 		2983858F176A307400D982FD /* KOCharacterNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KOCharacterNode.m; sourceTree = "<group>"; };
 		29838592176A384200D982FD /* KOElements.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KOElements.h; sourceTree = "<group>"; };
 		29838593176A384200D982FD /* KOElements.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KOElements.m; sourceTree = "<group>"; };
-		29838596176A3F7200D982FD /* KOAttack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KOAttack.h; sourceTree = "<group>"; };
-		29838597176A3F7200D982FD /* KOAttack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KOAttack.m; sourceTree = "<group>"; };
 		2983859B176A718C00D982FD /* KOSharedFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KOSharedFunctions.h; sourceTree = "<group>"; };
 		2983859C176A718C00D982FD /* KOSharedFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KOSharedFunctions.m; sourceTree = "<group>"; };
+		299C94591776235100380F78 /* KOAttackNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KOAttackNode.h; sourceTree = "<group>"; };
+		299C945A1776235100380F78 /* KOAttackNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KOAttackNode.m; sourceTree = "<group>"; };
 		29D3448B176910620068C31B /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		29D3448D176912AD0068C31B /* KOBattleScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KOBattleScene.h; sourceTree = "<group>"; };
 		29D3448E176912AD0068C31B /* KOBattleScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KOBattleScene.m; sourceTree = "<group>"; };
@@ -192,8 +192,6 @@
 			children = (
 				29838592176A384200D982FD /* KOElements.h */,
 				29838593176A384200D982FD /* KOElements.m */,
-				29838596176A3F7200D982FD /* KOAttack.h */,
-				29838597176A3F7200D982FD /* KOAttack.m */,
 				2983859B176A718C00D982FD /* KOSharedFunctions.h */,
 				2983859C176A718C00D982FD /* KOSharedFunctions.m */,
 			);
@@ -214,6 +212,8 @@
 			children = (
 				2983858E176A307400D982FD /* KOCharacterNode.h */,
 				2983858F176A307400D982FD /* KOCharacterNode.m */,
+				299C94591776235100380F78 /* KOAttackNode.h */,
+				299C945A1776235100380F78 /* KOAttackNode.m */,
 			);
 			name = Sprites;
 			sourceTree = "<group>";
@@ -331,8 +331,8 @@
 				29D3448F176914830068C31B /* KOBattleScene.m in Sources */,
 				2967401C17690C7100EF207D /* KOMyScene.m in Sources */,
 				2967401917690C7100EF207D /* KOViewController.m in Sources */,
-				29838598176A3F7200D982FD /* KOAttack.m in Sources */,
 				2967401317690C7100EF207D /* KOAppDelegate.m in Sources */,
+				299C945B1776235100380F78 /* KOAttackNode.m in Sources */,
 				2967400F17690C7100EF207D /* main.m in Sources */,
 				29838590176A307400D982FD /* KOCharacterNode.m in Sources */,
 				29838594176A384200D982FD /* KOElements.m in Sources */,
