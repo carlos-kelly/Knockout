@@ -21,6 +21,7 @@
 
 @interface KOCharacterNode : SKSpriteNode
 
+
 @property (nonatomic) NSString *name;
 @property (nonatomic) KOElement *element;
 @property (nonatomic) NSArray *attacks;
@@ -35,5 +36,7 @@
 -(void)setCharacterProperties:(NSDictionary *)properties;
 -(void)setPhysicsBodyCategory:(uint8_t)categoryBitMask collision:(uint8_t)collisionBitMask contact:(uint8_t)contactBitMask;
 -(void)moveToPosition:(CGPoint)position;
+-(void)applyDamage:(CGFloat)damage;
+-(void)faint;
 
 @end

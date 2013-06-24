@@ -11,4 +11,7 @@
 
 @interface KOViewController : UIViewController
 
+@property (strong, nonatomic) IBOutlet SKView *sceneView;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *attackSegmentedControl;
+
 @end

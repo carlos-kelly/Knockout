@@ -16,31 +16,36 @@
         self.backgroundColor = [SKColor colorWithWhite:0.2 alpha:1.0];
         self.physicsWorld.gravity = CGPointZero;
         self.physicsWorld.contactDelegate = self;
-        [self createPlayerCharacter:nil];
-        [self createOpponents:nil];
+        self.opponentNodesCount = 0;
     }
     
     return self;
 }
 
--(void)createPlayerCharacter:(id)sender {
+-(void)createPlayerCharacter {
     SKTexture *playerTexture = [SKTexture textureWithImageNamed:@"PlayerSprite"];
-    SKColor *playerColor = [SKColor colorWithRed:0.0 green:0.0 blue:1.0 alpha:1.0];
+    KOElement *playerElement = [KOElements water];
     CGSize playerSize = CGSizeMake(32.0, 32.0);
     
     self.playerNode = [[KOCharacterNode alloc] initWithTexture:playerTexture
-                                                         color:playerColor
+                                                         color:playerElement[kElementTintColor]
                                                           size:playerSize];
     
-    NSArray *playerAttacks = @[  ];
+    NSArray *playerAttacks = @[
+                               KOAttackNodeWater,
+                               KOAttackNodeFire,
+                               KOAttackNodeGrass,
+                               KOAttackNodeElectric
+                               ];
     
+    self.attackSegmentedControl.tintColor = [KOAttackNode attackDataForIdentifier:playerAttacks[0]][kAttackDataElement][kElementTintColor];
+        
     [self.playerNode setCharacterProperties:@{ kCharacterName: @"Carlos",
-                                               kCharacterLevel: @13,
-                                               kCharacterElement: [KOElements water],
+                                               kCharacterLevel: @10,
+                                               kCharacterElement: playerElement,
                                                kCharacterAttacks: playerAttacks }];
-    
-    CGFloat centerScreen = [[UIScreen mainScreen] bounds].size.width;
-    self.playerNode.position = CGPointMake(centerScreen / 2.0, 100);
+        
+    self.playerNode.position = CGPointMake(CGRectGetMidX(self.frame), 48);
     
     [self.playerNode setPhysicsBodyCategory:KONodeTypePlayer
                                   collision:KONodeTypeBarrier | KONodeTypeOpponent
@@ -50,30 +55,40 @@
     
 }
 
--(void)createOpponents:(id)sender {
+-(void)update:(NSTimeInterval)currentTime {
+    if (self.opponentNodesCount < MAX_OPPONENT_NODES)
+        [self createOpponent];
+}
+
+-(void)createOpponent {
     SKTexture *opponentTexture = [SKTexture textureWithImageNamed:@"PlayerSprite"];
-    SKColor *opponentColor = [SKColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:1.0];
+    KOElement *opponentElement = [KOElements normal];
     CGSize opponentSize = CGSizeMake(32.0, 32.0);
+    CGFloat randomValue = ((arc4random() % 200) + 140);
     
     KOCharacterNode *opponentNode = [[KOCharacterNode alloc] initWithTexture:opponentTexture
-                                                                       color:opponentColor
+                                                                       color:opponentElement[kElementTintColor]
                                                                         size:opponentSize];
     
-    NSArray *opponentAttacks = @[  ];
+    NSArray *opponentAttacks = @[ KOAttackNodeWater,
+                                  KOAttackNodeFire,
+                                  KOAttackNodeGrass,
+                                  KOAttackNodeElectric ];
     
     [opponentNode setCharacterProperties:@{ kCharacterName: @"Opponent",
                                             kCharacterLevel: @10,
-                                            kCharacterElement: [KOElements fire],
+                                            kCharacterElement: opponentElement,
                                             kCharacterAttacks: opponentAttacks }];
     
-    CGFloat centerScreen = [[UIScreen mainScreen] bounds].size.width;
-    opponentNode.position = CGPointMake(centerScreen / 2.0, 180);
+    opponentNode.position = CGPointMake(randomValue, 128);
     
     [opponentNode setPhysicsBodyCategory:KONodeTypeOpponent
-                               collision:KONodeTypeBarrier | KONodeTypePlayer
+                               collision:KONodeTypeBarrier | KONodeTypePlayer | KONodeTypeOpponent
                                  contact:KONodeTypeAttack];
     
     [self addChild:opponentNode];
+    
+    self.opponentNodesCount++;
 }
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -96,8 +111,7 @@
              }];
             
             if (shouldPerformAttack)
-                [self performAttackFromNode:self.playerNode
-                                     toNode:targetNode];
+                [self performAttackFromNode:targetNode];
             else
                 [self.playerNode moveToPosition:location];
     
@@ -105,24 +119,25 @@
     }
 }
 
--(void)performAttackFromNode:(KOCharacterNode *)nodeA toNode:(KOCharacterNode *)nodeB {
-    KOAttackNode *attackNode = [KOAttackNode fireAttackNode];
-    nodeA.isAttacking = YES;
+-(void)performAttackFromNode:(KOCharacterNode *)characterNode {
+    KOAttackNode *attackNode = [KOAttackNode attackNodeForIdentifier:characterNode.attacks[self.attackSegmentedControl.selectedSegmentIndex]];
+    characterNode.isAttacking = YES;
     
-    CGFloat angle = radiansToPolar(nodeA.zRotation);
+    CGFloat angle = radiansToPolar(characterNode.zRotation);
     CGFloat distance = 100.0;
-    CGPoint endPoint = CGPointMake(nodeA.position.x + distance * cosf(angle),
-                                   nodeA.position.y + distance * sinf(angle));
+    CGPoint endPoint = CGPointMake(characterNode.position.x + distance * cosf(angle),
+                                   characterNode.position.y + distance * sinf(angle));
     
-    attackNode.physicsBody.contactTestBitMask = nodeB.physicsBody.categoryBitMask;
-    attackNode.position = nodeA.position;
-    attackNode.zRotation = nodeA.zRotation;
+    attackNode.position = characterNode.position;
+    attackNode.zRotation = characterNode.zRotation;
     
-    SKPhysicsBody *targetPhysicsBody = [self.physicsWorld bodyAlongRayStart:nodeA.position end:endPoint];
-    if (targetPhysicsBody) endPoint = targetPhysicsBody.node.position;
+    SKPhysicsBody *targetPhysicsBody = [self.physicsWorld bodyAlongRayStart:characterNode.position end:endPoint];
     
-   
-
+    if (targetPhysicsBody) {
+        endPoint = targetPhysicsBody.node.position;
+        attackNode.physicsBody.contactTestBitMask = targetPhysicsBody.categoryBitMask;
+        [attackNode setDamageForNodeA:characterNode toNodeB:(KOCharacterNode *)targetPhysicsBody.node];
+    }
 
     [self addChild:attackNode];
     [attackNode runAction:[SKAction sequence:@[
@@ -134,15 +149,28 @@
                                                ]]
                completion:^{
                    [attackNode removeFromParent];
-                   nodeA.isAttacking = NO;
+                   characterNode.isAttacking = NO;
                }];
+}
+
+-(void)attackSegmentedControlDidChangeSelection:(id)sender {
+    UISegmentedControl *segmentedControl = (UISegmentedControl *)sender;
+    segmentedControl.tintColor = [KOAttackNode attackDataForIdentifier:self.playerNode.attacks[segmentedControl.selectedSegmentIndex]][kAttackDataElement][kElementTintColor];
+}
+
+-(void)didMoveToView:(SKView *)view {
+    [self createPlayerCharacter];
+    [self createOpponent];    
+    [self.attackSegmentedControl addTarget:self
+                                    action:@selector(attackSegmentedControlDidChangeSelection:)
+                          forControlEvents:UIControlEventValueChanged];
 }
 
 -(void)didBeginContact:(SKPhysicsContact *)contact {   
     KOCharacterNode *targetNode;
     KOAttackNode *attackNode;
-    
-    if (contact.bodyA.contactTestBitMask < contact.bodyB.contactTestBitMask) {
+        
+    if (contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask) {
         targetNode = (KOCharacterNode *)contact.bodyA.node;
         attackNode = (KOAttackNode *)contact.bodyB.node;
     } else {
@@ -150,8 +178,12 @@
         attackNode = (KOAttackNode *)contact.bodyA.node;
     }
     
-    NSLog(@"targetNode: %@", targetNode);
-    NSLog(@"attackNode: %@", attackNode);
+    if (targetNode.physicsBody.categoryBitMask & attackNode.physicsBody.contactTestBitMask) {
+        NSLog(@"targetNode: %@", targetNode);
+        NSLog(@"attackNode: %@", attackNode);
+        NSLog(@"attackNode.damage: %f", attackNode.damage);
+        [targetNode applyDamage:attackNode.damage];
+    }
 }
 
 @end

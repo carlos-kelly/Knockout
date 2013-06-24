@@ -11,12 +11,17 @@
 #import "KOCharacterNode.h"
 #import "KOAttackNode.h"
 
+#define MAX_OPPONENT_NODES 5
+
 @interface KOBattleScene : SKScene <SKPhysicsContactDelegate>
 
+@property (nonatomic) NSInteger opponentNodesCount;
 @property (nonatomic) KOCharacterNode *playerNode;
+@property (nonatomic) UISegmentedControl *attackSegmentedControl;
 
--(void)createPlayerCharacter:(id)sender;
--(void)createOpponents:(id)sender;
--(void)performAttackFromNode:(KOCharacterNode *)nodeA toNode:(KOCharacterNode *)nodeB;
+-(void)createPlayerCharacter;
+-(void)createOpponent;
+-(void)performAttackFromNode:(KOCharacterNode *)characterNode;
+-(void)attackSegmentedControlDidChangeSelection:(id)sender;
 
 @end

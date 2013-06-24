@@ -8,14 +8,29 @@
 
 @import SpriteKit;
 
-#import "KOSharedFunctions.h"
+#import "KOCharacterNode.h"
+
+#define KOAttackNodeGrass @"grassAttackNode"
+#define KOAttackNodeFire @"fireAttackNode"
+#define KOAttackNodeWater @"waterAttackNode"
+#define KOAttackNodeElectric @"electricAttackNode"
+
+#define kAttackDataName @"kAttackDataName"
+#define kAttackDataElement @"kAttackDataElement"
 
 @interface KOAttackNode : SKSpriteNode
 
-@property (nonatomic) NSInteger power;
-@property (nonatomic) SKEmitterNode *emitterNode;
+@property (nonatomic) NSInteger basePower;
+@property (nonatomic) CGFloat damage;
 @property (nonatomic) NSString *name;
+@property (nonatomic) KOElement *element;
+@property (nonatomic) SKEmitterNode *emitterNode;
 
++(instancetype)grassAttackNode;
 +(instancetype)fireAttackNode;
-
++(instancetype)waterAttackNode;
++(instancetype)electricAttackNode;
++(instancetype)attackNodeForIdentifier:(NSString *)identifier;
++(NSDictionary *)attackDataForIdentifier:(NSString *)identifier;
+-(void)setDamageForNodeA:(KOCharacterNode *)nodeA toNodeB:(KOCharacterNode *)nodeB;
 @end

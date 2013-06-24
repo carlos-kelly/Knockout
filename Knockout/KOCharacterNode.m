@@ -7,6 +7,7 @@
 //
 
 #import "KOCharacterNode.h"
+#import "KOBattleScene.h"
 
 @implementation KOCharacterNode
 
@@ -62,6 +63,50 @@
          completion:^{
         self.isMoving = NO;
     }];
+}
+
+-(void)applyDamage:(CGFloat)damage {
+    [self runAction:[SKAction sequence:@[
+                                         [SKAction waitForDuration:0.25],
+                                         [SKAction repeatAction:[SKAction sequence:
+                                                                 @[
+                                                                   [SKAction moveByX:5.0
+                                                                                   y:0.0
+                                                                            duration:0.05],
+                                                                   [SKAction moveByX:-10.0
+                                                                                   y:0.0
+                                                                            duration:0.05],
+                                                                   [SKAction moveByX:5.0
+                                                                                   y:0.0
+                                                                            duration:0.05]
+                                                                   ]]
+                                                          count:3]
+                                         ]]
+         completion:^{
+             self.currentHitPoints -= damage;
+             if (self.currentHitPoints < 1.0) {
+                 [self faint];
+             }
+         }];
+}
+
+-(void)faint {
+    [self runAction:[SKAction sequence:@[
+                                         [SKAction waitForDuration:0.5],
+                                         [SKAction scaleTo:1.25 duration:0.1],
+                                         [SKAction group:@[
+                                                           [SKAction fadeAlphaTo:0.0 duration:1.0],
+                                                           [SKAction scaleTo:0.0 duration:1.0],
+                                                           [SKAction rotateByAngle:M_PI duration:1.0]
+                                                           ]]
+                                         ]]
+         completion:^{
+             if (self.physicsBody.categoryBitMask & KONodeTypeOpponent &&
+                 [[self parent] respondsToSelector:@selector(setOpponentNodesCount:)])
+                 ((KOBattleScene *)self.parent).opponentNodesCount--;
+             
+             [self removeFromParent];
+         }];
 }
 
 @end

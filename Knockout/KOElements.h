@@ -6,10 +6,12 @@
 //  Copyright (c) 2013 Carlos Paelinck. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
+@import SpriteKit;
 
 #define kElementName @"kElementName"
-#define kDamageMultiplier @"kDamageMultiplier"
+#define kElementDamageMultiplier @"kElementDamageMultiplier"
+#define kElementTintColor @"kElementTintColor"
 
 typedef NSDictionary KOElement;
 
@@ -19,5 +21,6 @@ typedef NSDictionary KOElement;
 +(KOElement *)water;
 +(KOElement *)grass;
 +(KOElement *)normal;
++(KOElement *)electric;
 
 @end

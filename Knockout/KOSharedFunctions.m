@@ -30,14 +30,5 @@ CGFloat hitPointsForLevel(NSInteger baseStat, NSInteger level) {
     return ((((31.0 + (2.0 * (CGFloat)baseStat) + (252.0 / 4.0) + 100.0) * (CGFloat)level) / 100.0) + 10.0);
 }
 
-void runAttackEmitter(SKEmitterNode *node, NSTimeInterval duration) {
-    [node runAction:[SKAction sequence:@[[SKAction waitForDuration:duration],
-                                         [SKAction runBlock:^{
-                                            node.particleBirthRate = 0;
-                                            }],
-                                         [SKAction waitForDuration:node.particleLifetime + node.particleLifetimeRange],
-                                         [SKAction removeFromParent]
-                                         ]]];
-}
 
 @end

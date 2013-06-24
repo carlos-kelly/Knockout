@@ -25,6 +25,4 @@ CGFloat radiansToPolar(CGFloat radians);
 CGFloat statForLevel(NSInteger baseStat, NSInteger level);
 CGFloat hitPointsForLevel(NSInteger baseStat, NSInteger level);
 
-void runAttackEmitter(SKEmitterNode *node, NSTimeInterval duration);
-
 @end

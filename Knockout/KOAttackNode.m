@@ -10,15 +10,128 @@
 
 @implementation KOAttackNode
 
-+(instancetype)fireAttackNode {
++(instancetype)attackNodeForIdentifier:(NSString *)identifier {
+    if ([identifier isEqualToString:KOAttackNodeGrass])
+        return [KOAttackNode grassAttackNode];
+    
+    else if ([identifier isEqualToString:KOAttackNodeFire])
+        return [KOAttackNode fireAttackNode];
+    
+    else if ([identifier isEqualToString:KOAttackNodeWater])
+        return [KOAttackNode waterAttackNode];
+    
+    else if ([identifier isEqualToString:KOAttackNodeElectric])
+        return [KOAttackNode electricAttackNode];
+    
+    else return nil;
+}
+
++(NSDictionary *)attackDataForIdentifier:(NSString *)identifier {
+    if ([identifier isEqualToString:KOAttackNodeGrass])
+        return @{
+                 kAttackDataName: @"Razor Leaf",
+                 kAttackDataElement: [KOElements grass]
+                 };
+    
+    else if ([identifier isEqualToString:KOAttackNodeFire])
+        return @{
+                 kAttackDataName: @"Flame Burst",
+                 kAttackDataElement: [KOElements fire]
+                 };
+    
+    else if ([identifier isEqualToString:KOAttackNodeWater])
+        return @{
+                 kAttackDataName: @"Water Pulse",
+                 kAttackDataElement: [KOElements water]
+                 };
+    
+    else if ([identifier isEqualToString:KOAttackNodeElectric])
+        return @{
+                 kAttackDataName: @"Shock Wave",
+                 kAttackDataElement: [KOElements electric]
+                 };
+    
+    else return nil;
+}
+
++(instancetype)grassAttackNode {
     KOAttackNode *attackNode = [KOAttackNode node];
-    SKEmitterNode *emitterNode = [NSKeyedUnarchiver unarchiveObjectWithFile:[[NSBundle mainBundle] pathForResource:@"FlamethrowerParticle" ofType:@"sks"]];
+    SKEmitterNode *emitterNode = [NSKeyedUnarchiver unarchiveObjectWithFile:[[NSBundle mainBundle] pathForResource:@"GrassAttackParticle" ofType:@"sks"]];
+    NSDictionary *attackData = [KOAttackNode attackDataForIdentifier:KOAttackNodeGrass];
     
     attackNode.size = CGSizeMake(16.0, 16.0);
     attackNode.colorBlendFactor = 1.0;
     attackNode.blendMode = SKBlendModeAlpha;
-    attackNode.power = 70;
-    attackNode.name = @"Flame Burst";
+    attackNode.basePower = 70;
+    attackNode.damage = 0.0;
+    attackNode.name = attackData[kAttackDataName];
+    attackNode.element = attackData[kAttackDataElement];
+    attackNode.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:attackNode.size.width / 2.0];
+    attackNode.physicsBody.categoryBitMask = KONodeTypeAttack;
+    attackNode.physicsBody.collisionBitMask = KONodeTypeBarrier;
+    attackNode.emitterNode = emitterNode;
+    
+    [attackNode addChild:emitterNode];
+    
+    return attackNode;
+}
+
++(instancetype)fireAttackNode {
+    KOAttackNode *attackNode = [KOAttackNode node];
+    SKEmitterNode *emitterNode = [NSKeyedUnarchiver unarchiveObjectWithFile:[[NSBundle mainBundle] pathForResource:@"FireAttackParticle" ofType:@"sks"]];
+    NSDictionary *attackData = [KOAttackNode attackDataForIdentifier:KOAttackNodeFire];
+    
+    attackNode.size = CGSizeMake(16.0, 16.0);
+    attackNode.colorBlendFactor = 1.0;
+    attackNode.blendMode = SKBlendModeAlpha;
+    attackNode.basePower = 70;
+    attackNode.damage = 0.0;
+    attackNode.name = attackData[kAttackDataName];
+    attackNode.element = attackData[kAttackDataElement];
+    attackNode.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:attackNode.size.width / 2.0];
+    attackNode.physicsBody.categoryBitMask = KONodeTypeAttack;
+    attackNode.physicsBody.collisionBitMask = KONodeTypeBarrier;
+    attackNode.emitterNode = emitterNode;
+    
+    [attackNode addChild:emitterNode];
+    
+    return attackNode;
+}
+
++(instancetype)waterAttackNode {
+    KOAttackNode *attackNode = [KOAttackNode node];
+    SKEmitterNode *emitterNode = [NSKeyedUnarchiver unarchiveObjectWithFile:[[NSBundle mainBundle] pathForResource:@"WaterAttackParticle" ofType:@"sks"]];
+    NSDictionary *attackData = [KOAttackNode attackDataForIdentifier:KOAttackNodeWater];
+    
+    attackNode.size = CGSizeMake(16.0, 16.0);
+    attackNode.colorBlendFactor = 1.0;
+    attackNode.blendMode = SKBlendModeAlpha;
+    attackNode.basePower = 70;
+    attackNode.damage = 0.0;
+    attackNode.name = attackData[kAttackDataName];
+    attackNode.element = attackData[kAttackDataElement];
+    attackNode.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:attackNode.size.width / 2.0];
+    attackNode.physicsBody.categoryBitMask = KONodeTypeAttack;
+    attackNode.physicsBody.collisionBitMask = KONodeTypeBarrier;
+    attackNode.emitterNode = emitterNode;
+    
+    [attackNode addChild:emitterNode];
+    
+    return attackNode;
+}
+
++(instancetype)electricAttackNode {
+    KOAttackNode *attackNode = [KOAttackNode node];
+    SKEmitterNode *emitterNode = [NSKeyedUnarchiver unarchiveObjectWithFile:[[NSBundle mainBundle] pathForResource:@"ElectricAttackParticle" ofType:@"sks"]];
+    NSDictionary *attackData = [KOAttackNode attackDataForIdentifier:KOAttackNodeElectric];
+    
+    attackNode.size = CGSizeMake(16.0, 16.0);
+    attackNode.colorBlendFactor = 1.0;
+    attackNode.blendMode = SKBlendModeAlpha;
+    attackNode.basePower = 70;
+    attackNode.damage = 0.0;
+    attackNode.name = attackData[kAttackDataName];
+    attackNode.element = attackData[kAttackDataElement];
     attackNode.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:attackNode.size.width / 2.0];
     attackNode.physicsBody.categoryBitMask = KONodeTypeAttack;
     attackNode.physicsBody.collisionBitMask = KONodeTypeBarrier;
@@ -31,6 +144,17 @@
 
 -(NSString *)description {
     return [NSString stringWithFormat:@"%@", self.name];
+}
+
+-(void)setDamageForNodeA:(KOCharacterNode *)nodeA toNodeB:(KOCharacterNode *)nodeB {
+    CGFloat attackStat = statForLevel(kBaseStatDefault, nodeA.level);
+    CGFloat defenseStat = statForLevel(kBaseStatDefault, nodeB.level);
+    CGFloat randomValue = ((arc4random() % 33) + 217);
+    CGFloat STAB = [self.element[kElementName] isEqualToString:nodeA.element[kElementName]] ? 1.5 : 1.0;
+    CGFloat elementEffectiveness = [nodeB.element[kElementDamageMultiplier][self.element[kElementName]] floatValue];
+        
+    self.damage = ((((((((nodeA.level * 2 / 5) + 2) * self.basePower * attackStat / 50) / defenseStat) + 2) *
+                     randomValue / 100) * STAB * elementEffectiveness) / 1.5);
 }
 
 @end
