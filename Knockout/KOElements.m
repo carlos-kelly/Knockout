@@ -35,7 +35,7 @@
 }
 
 +(KOElement *)electric {
-    return @{kElementName: @"Normal",
+    return @{kElementName: @"Electric",
              kElementTintColor: [SKColor colorWithRed:1.0 green:1.0 blue:0.0 alpha:1.0],
              kElementDamageMultiplier: @{ @"Fire" : @1.0, @"Water": @1.0, @"Grass": @1.0, @"Electric": @0.5, @"Ground": @2.0, @"Ice": @1.0, @"Normal": @1.0}};
 }

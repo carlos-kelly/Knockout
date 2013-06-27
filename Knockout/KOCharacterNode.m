@@ -32,7 +32,7 @@
     self.element = properties[kCharacterElement];
     self.attacks = properties[kCharacterAttacks];
     
-    self.hitPoints = hitPointsForLevel(kBaseStatDefault, self.level);
+    self.hitPoints = KOHitPointsForLevel(kBaseStatDefault, self.level);
     self.currentHitPoints = self.hitPoints;
     
     self.isMoving = NO;
@@ -46,23 +46,37 @@
     self.physicsBody.contactTestBitMask = contactBitMask;
 }
 
+-(void)rotateToPosition:(CGPoint)position {
+    self.zRotation = KORadiansToPolar(KORadiansBetweenPoints(position, self.position));
+}
+
 -(void)moveToPosition:(CGPoint)position {
-    CGPoint oldPosition = [self position];
-    CGFloat distance = distanceBetweenPoints(position, oldPosition);
-    CGFloat angle = radiansToPolar(radiansBetweenPoints(position, oldPosition));
-    CGFloat speed = statForLevel(kBaseStatDefault, self.level);
+    CGPoint newPosition = CGPointMake(position.x + self.position.x, position.y + self.position.y);
+    CGFloat distance = KODistanceBetweenPoints(newPosition, self.position);
+    CGFloat angle = KORadiansToPolar(KORadiansBetweenPoints(newPosition, self.position));
+    CGFloat speed = KOStatForLevel(kBaseStatDefault, self.level);
     NSTimeInterval duration = (distance / speed) * 1;
-        
-    self.isMoving = YES;
     
-    SKAction *rotateAction = [SKAction rotateToAngle:angle duration:0.10];
-    SKAction *moveAction = [SKAction moveTo:position duration:duration];
-    
-    
-    [self runAction:[SKAction sequence:@[rotateAction, moveAction]]
+    [self runAction:[SKAction group:@[[SKAction runBlock:^{
+                                            self.isMoving = YES;
+                                        }],
+                                      [SKAction repeatAction:[SKAction sequence:@[
+                                                                                  [SKAction scaleTo:1.15
+                                                                                           duration:0.1],
+                                                                                  [SKAction scaleTo:1.0
+                                                                                           duration:0.1]
+                                                                                  ]]
+                                                       count:(duration / 0.2)],
+                                      [SKAction sequence:@[
+                                                           [SKAction rotateToAngle:angle
+                                                                          duration:0],
+                                                           [SKAction moveTo:newPosition
+                                                                   duration:duration]
+                                                           ]]
+                                      ]]
          completion:^{
-        self.isMoving = NO;
-    }];
+             self.isMoving = NO;
+         }];
 }
 
 -(void)applyDamage:(CGFloat)damage {
@@ -96,14 +110,13 @@
                                          [SKAction scaleTo:1.25 duration:0.1],
                                          [SKAction group:@[
                                                            [SKAction fadeAlphaTo:0.0 duration:1.0],
-                                                           [SKAction scaleTo:0.0 duration:1.0],
-                                                           [SKAction rotateByAngle:M_PI duration:1.0]
+                                                           [SKAction scaleTo:0.0 duration:1.0]
                                                            ]]
                                          ]]
          completion:^{
              if (self.physicsBody.categoryBitMask & KONodeTypeOpponent &&
-                 [[self parent] respondsToSelector:@selector(setOpponentNodesCount:)])
-                 ((KOBattleScene *)self.parent).opponentNodesCount--;
+                 [self.scene respondsToSelector:@selector(setOpponentNodes:)])
+                 [[(KOBattleScene *)self.scene opponentNodes] removeObject:self];
              
              [self removeFromParent];
          }];

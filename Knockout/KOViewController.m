@@ -25,6 +25,9 @@
     KOBattleScene *scene = [KOBattleScene sceneWithSize:skView.bounds.size];
     scene.scaleMode = SKSceneScaleModeAspectFill;
     scene.attackSegmentedControl = self.attackSegmentedControl;
+    scene.playerNameLabel = self.playerNameLabel;
+    scene.playerHealthBar = self.playerHealthBar;
+    scene.playerElementImageView = self.playerElementImageView;
     
     // Present the scene.
     [skView presentScene:scene];

@@ -13,5 +13,8 @@
 
 @property (strong, nonatomic) IBOutlet SKView *sceneView;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *attackSegmentedControl;
+@property (strong, nonatomic) IBOutlet UIImageView *playerElementImageView;
+@property (strong, nonatomic) IBOutlet UILabel *playerNameLabel;
+@property (strong, nonatomic) IBOutlet UIProgressView *playerHealthBar;
 
 @end

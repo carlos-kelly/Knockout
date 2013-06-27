@@ -11,6 +11,9 @@
 
 @interface KOSharedFunctions : NSObject
 
+#define kGameMapSize 24
+#define kNodeSize 32
+
 typedef enum : uint8_t {
     KONodeTypePlayer = 0x1 << 0,
     KONodeTypeOpponent = 0x1 << 1,
@@ -19,10 +22,19 @@ typedef enum : uint8_t {
     
 } KONodeType;
 
-CGFloat distanceBetweenPoints(CGPoint firstPoint, CGPoint secondPoint);
-CGFloat radiansBetweenPoints(CGPoint firstPoint, CGPoint secondPoint);
-CGFloat radiansToPolar(CGFloat radians);
-CGFloat statForLevel(NSInteger baseStat, NSInteger level);
-CGFloat hitPointsForLevel(NSInteger baseStat, NSInteger level);
+typedef struct {
+    uint8_t barrier, playerLocation, trainerLocation, leaderLocation;
+} KOGameMap;
+
+typedef KOGameMap *KOGameMapRef;
+
+CGFloat KODistanceBetweenPoints(CGPoint firstPoint, CGPoint secondPoint);
+CGFloat KORadiansBetweenPoints(CGPoint firstPoint, CGPoint secondPoint);
+CGFloat KORadiansToPolar(CGFloat radians);
+CGFloat KOStatForLevel(NSInteger baseStat, NSInteger level);
+CGFloat KOHitPointsForLevel(NSInteger baseStat, NSInteger level);
+void *KOCreateGameMap(CGImageRef mapImage);
+KOGameMapRef KOGameMapRefForLocation(KOGameMapRef gameMapRef, CGPoint location);
+
 
 @end

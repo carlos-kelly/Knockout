@@ -147,8 +147,8 @@
 }
 
 -(void)setDamageForNodeA:(KOCharacterNode *)nodeA toNodeB:(KOCharacterNode *)nodeB {
-    CGFloat attackStat = statForLevel(kBaseStatDefault, nodeA.level);
-    CGFloat defenseStat = statForLevel(kBaseStatDefault, nodeB.level);
+    CGFloat attackStat = KOStatForLevel(kBaseStatDefault, nodeA.level);
+    CGFloat defenseStat = KOStatForLevel(kBaseStatDefault, nodeB.level);
     CGFloat randomValue = ((arc4random() % 33) + 217);
     CGFloat STAB = [self.element[kElementName] isEqualToString:nodeA.element[kElementName]] ? 1.5 : 1.0;
     CGFloat elementEffectiveness = [nodeB.element[kElementDamageMultiplier][self.element[kElementName]] floatValue];

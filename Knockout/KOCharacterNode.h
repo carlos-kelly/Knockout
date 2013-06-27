@@ -35,6 +35,7 @@
 
 -(void)setCharacterProperties:(NSDictionary *)properties;
 -(void)setPhysicsBodyCategory:(uint8_t)categoryBitMask collision:(uint8_t)collisionBitMask contact:(uint8_t)contactBitMask;
+-(void)rotateToPosition:(CGPoint)position;
 -(void)moveToPosition:(CGPoint)position;
 -(void)applyDamage:(CGFloat)damage;
 -(void)faint;
