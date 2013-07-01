@@ -13,6 +13,7 @@
 
 #define kGameMapSize 24
 #define kNodeSize 32
+#define kAttackZoneDistance 100
 
 typedef enum : uint8_t {
     KONodeTypePlayer = 0x1 << 0,
@@ -22,8 +23,15 @@ typedef enum : uint8_t {
     
 } KONodeType;
 
+typedef enum : uint8_t {
+    KOWorldLayerGround = 0,
+    KOWorldLayerCharacters,
+    KOWorldLayerTop,
+    kWorldLayersCount
+} KOWorldLayer;
+
 typedef struct {
-    uint8_t barrier, playerLocation, trainerLocation, leaderLocation;
+    uint8_t red, green, blue, alpha;
 } KOGameMap;
 
 typedef KOGameMap *KOGameMapRef;
@@ -35,6 +43,5 @@ CGFloat KOStatForLevel(NSInteger baseStat, NSInteger level);
 CGFloat KOHitPointsForLevel(NSInteger baseStat, NSInteger level);
 void *KOCreateGameMap(CGImageRef mapImage);
 KOGameMapRef KOGameMapRefForLocation(KOGameMapRef gameMapRef, CGPoint location);
-
 
 @end

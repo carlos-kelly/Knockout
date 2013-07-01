@@ -20,7 +20,8 @@ typedef NSDictionary KOElement;
 +(KOElement *)fire;
 +(KOElement *)water;
 +(KOElement *)grass;
-+(KOElement *)normal;
 +(KOElement *)electric;
++(KOElement *)ice;
++(KOElement *)ground;
 
 @end

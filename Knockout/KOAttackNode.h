@@ -14,6 +14,8 @@
 #define KOAttackNodeFire @"fireAttackNode"
 #define KOAttackNodeWater @"waterAttackNode"
 #define KOAttackNodeElectric @"electricAttackNode"
+#define KOAttackNodeIce @"iceAttackNode"
+#define KOAttackNodeGround @"groundAttackNode"
 
 #define kAttackDataName @"kAttackDataName"
 #define kAttackDataElement @"kAttackDataElement"
@@ -30,7 +32,10 @@
 +(instancetype)fireAttackNode;
 +(instancetype)waterAttackNode;
 +(instancetype)electricAttackNode;
++(instancetype)iceAttackNode;
++(instancetype)groundAttackNode;
 +(instancetype)attackNodeForIdentifier:(NSString *)identifier;
++(NSArray *)attackIdentifiersForElement:(NSString *)element;
 +(NSDictionary *)attackDataForIdentifier:(NSString *)identifier;
 -(void)setDamageForNodeA:(KOCharacterNode *)nodeA toNodeB:(KOCharacterNode *)nodeB;
 @end

@@ -23,35 +23,63 @@
     else if ([identifier isEqualToString:KOAttackNodeElectric])
         return [KOAttackNode electricAttackNode];
     
+    else if ([identifier isEqualToString:KOAttackNodeIce])
+        return [KOAttackNode iceAttackNode];
+    
+    else if ([identifier isEqualToString:KOAttackNodeGround])
+        return [KOAttackNode groundAttackNode];
+    
     else return nil;
 }
 
 +(NSDictionary *)attackDataForIdentifier:(NSString *)identifier {
     if ([identifier isEqualToString:KOAttackNodeGrass])
-        return @{
-                 kAttackDataName: @"Razor Leaf",
-                 kAttackDataElement: [KOElements grass]
-                 };
+        return @{ kAttackDataName: @"Energy Ball",
+                  kAttackDataElement: [KOElements grass] };
     
     else if ([identifier isEqualToString:KOAttackNodeFire])
-        return @{
-                 kAttackDataName: @"Flame Burst",
-                 kAttackDataElement: [KOElements fire]
-                 };
+        return @{ kAttackDataName: @"Flame Burst",
+                  kAttackDataElement: [KOElements fire] };
     
     else if ([identifier isEqualToString:KOAttackNodeWater])
-        return @{
-                 kAttackDataName: @"Water Pulse",
-                 kAttackDataElement: [KOElements water]
-                 };
+        return @{ kAttackDataName: @"Water Pulse",
+                  kAttackDataElement: [KOElements water] };
     
     else if ([identifier isEqualToString:KOAttackNodeElectric])
-        return @{
-                 kAttackDataName: @"Shock Wave",
-                 kAttackDataElement: [KOElements electric]
-                 };
+        return @{ kAttackDataName: @"Shock Wave",
+                  kAttackDataElement: [KOElements electric] };
+    
+    else if ([identifier isEqualToString:KOAttackNodeIce])
+        return @{ kAttackDataName: @"Icy Wind",
+                  kAttackDataElement: [KOElements ice] };
+    
+    else if ([identifier isEqualToString:KOAttackNodeGround])
+        return @{ kAttackDataName: @"Mud Bomb",
+                  kAttackDataElement: [KOElements ground] };
     
     else return nil;
+}
+
++(NSArray *)attackIdentifiersForElement:(NSString *)element {
+    if ([element isEqualToString:[KOElements fire][kElementName]])
+        return @[ KOAttackNodeFire, KOAttackNodeElectric, KOAttackNodeGrass ];
+    
+    else if ([element isEqualToString:[KOElements grass][kElementName]])
+        return @[ KOAttackNodeGrass, KOAttackNodeGround, KOAttackNodeFire ];
+    
+    else if ([element isEqualToString:[KOElements water][kElementName]])
+        return @[ KOAttackNodeWater, KOAttackNodeIce, KOAttackNodeGround ];
+    
+    else if ([element isEqualToString:[KOElements ice][kElementName]])
+        return @[ KOAttackNodeIce, KOAttackNodeElectric, KOAttackNodeWater ];
+    
+    else if ([element isEqualToString:[KOElements electric][kElementName]])
+        return @[ KOAttackNodeElectric, KOAttackNodeIce, KOAttackNodeFire ];
+    
+    else if ([element isEqualToString:[KOElements ground][kElementName]])
+        return @[ KOAttackNodeGround, KOAttackNodeGrass, KOAttackNodeFire ];
+                 
+    return nil;
 }
 
 +(instancetype)grassAttackNode {
@@ -69,6 +97,7 @@
     attackNode.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:attackNode.size.width / 2.0];
     attackNode.physicsBody.categoryBitMask = KONodeTypeAttack;
     attackNode.physicsBody.collisionBitMask = KONodeTypeBarrier;
+    attackNode.physicsBody.contactTestBitMask = KONodeTypeBarrier;
     attackNode.emitterNode = emitterNode;
     
     [attackNode addChild:emitterNode];
@@ -124,6 +153,50 @@
     KOAttackNode *attackNode = [KOAttackNode node];
     SKEmitterNode *emitterNode = [NSKeyedUnarchiver unarchiveObjectWithFile:[[NSBundle mainBundle] pathForResource:@"ElectricAttackParticle" ofType:@"sks"]];
     NSDictionary *attackData = [KOAttackNode attackDataForIdentifier:KOAttackNodeElectric];
+    
+    attackNode.size = CGSizeMake(16.0, 16.0);
+    attackNode.colorBlendFactor = 1.0;
+    attackNode.blendMode = SKBlendModeAlpha;
+    attackNode.basePower = 70;
+    attackNode.damage = 0.0;
+    attackNode.name = attackData[kAttackDataName];
+    attackNode.element = attackData[kAttackDataElement];
+    attackNode.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:attackNode.size.width / 2.0];
+    attackNode.physicsBody.categoryBitMask = KONodeTypeAttack;
+    attackNode.physicsBody.collisionBitMask = KONodeTypeBarrier;
+    attackNode.emitterNode = emitterNode;
+    
+    [attackNode addChild:emitterNode];
+    
+    return attackNode;
+}
+
++(instancetype)iceAttackNode {
+    KOAttackNode *attackNode = [KOAttackNode node];
+    SKEmitterNode *emitterNode = [NSKeyedUnarchiver unarchiveObjectWithFile:[[NSBundle mainBundle] pathForResource:@"IceAttackParticle" ofType:@"sks"]];
+    NSDictionary *attackData = [KOAttackNode attackDataForIdentifier:KOAttackNodeIce];
+    
+    attackNode.size = CGSizeMake(16.0, 16.0);
+    attackNode.colorBlendFactor = 1.0;
+    attackNode.blendMode = SKBlendModeAlpha;
+    attackNode.basePower = 70;
+    attackNode.damage = 0.0;
+    attackNode.name = attackData[kAttackDataName];
+    attackNode.element = attackData[kAttackDataElement];
+    attackNode.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:attackNode.size.width / 2.0];
+    attackNode.physicsBody.categoryBitMask = KONodeTypeAttack;
+    attackNode.physicsBody.collisionBitMask = KONodeTypeBarrier;
+    attackNode.emitterNode = emitterNode;
+    
+    [attackNode addChild:emitterNode];
+    
+    return attackNode;
+}
+
++(instancetype)groundAttackNode {
+    KOAttackNode *attackNode = [KOAttackNode node];
+    SKEmitterNode *emitterNode = [NSKeyedUnarchiver unarchiveObjectWithFile:[[NSBundle mainBundle] pathForResource:@"GroundAttackParticle" ofType:@"sks"]];
+    NSDictionary *attackData = [KOAttackNode attackDataForIdentifier:KOAttackNodeGround];
     
     attackNode.size = CGSizeMake(16.0, 16.0);
     attackNode.colorBlendFactor = 1.0;

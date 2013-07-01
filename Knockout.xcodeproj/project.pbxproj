@@ -11,7 +11,6 @@
 		2955FE89177795D80046CFA6 /* petal.png in Resources */ = {isa = PBXBuildFile; fileRef = 2955FE88177795D80046CFA6 /* petal.png */; };
 		2955FE8C177795F80046CFA6 /* GrassAttackParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2955FE8A177795F80046CFA6 /* GrassAttackParticle.sks */; };
 		2955FE8D177795F80046CFA6 /* bokeh.png in Resources */ = {isa = PBXBuildFile; fileRef = 2955FE8B177795F80046CFA6 /* bokeh.png */; };
-		295B765D177BCEA20039ECB7 /* game-map.png in Resources */ = {isa = PBXBuildFile; fileRef = 295B765C177BCEA20039ECB7 /* game-map.png */; };
 		2967400117690C7100EF207D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2967400017690C7100EF207D /* Foundation.framework */; };
 		2967400317690C7100EF207D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2967400217690C7100EF207D /* CoreGraphics.framework */; };
 		2967400517690C7100EF207D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2967400417690C7100EF207D /* UIKit.framework */; };
@@ -21,8 +20,6 @@
 		2967401317690C7100EF207D /* KOAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2967401217690C7100EF207D /* KOAppDelegate.m */; };
 		2967401617690C7100EF207D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2967401417690C7100EF207D /* Main.storyboard */; };
 		2967401917690C7100EF207D /* KOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2967401817690C7100EF207D /* KOViewController.m */; };
-		2967401C17690C7100EF207D /* KOMyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2967401B17690C7100EF207D /* KOMyScene.m */; };
-		2967401E17690C7100EF207D /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = 2967401D17690C7100EF207D /* Spaceship.png */; };
 		2967402017690C7100EF207D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2967401F17690C7100EF207D /* Images.xcassets */; };
 		2967402717690C7100EF207D /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2967402617690C7100EF207D /* XCTest.framework */; };
 		2967402817690C7100EF207D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2967400017690C7100EF207D /* Foundation.framework */; };
@@ -35,8 +32,11 @@
 		29838595176A3EF100D982FD /* FireAttackParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2967403C17690EB900EF207D /* FireAttackParticle.sks */; };
 		2983859D176A718C00D982FD /* KOSharedFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2983859C176A718C00D982FD /* KOSharedFunctions.m */; };
 		299C945B1776235100380F78 /* KOAttackNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 299C945A1776235100380F78 /* KOAttackNode.m */; };
+		29A47846177F66BF002932EB /* game-map.png in Resources */ = {isa = PBXBuildFile; fileRef = 29A47845177F66BF002932EB /* game-map.png */; };
 		29D3448C176910620068C31B /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 29D3448B176910620068C31B /* spark.png */; };
 		29D3448F176914830068C31B /* KOBattleScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 29D3448E176912AD0068C31B /* KOBattleScene.m */; };
+		29FE758D1781086000F10205 /* IceAttackParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 29FE758C1781086000F10205 /* IceAttackParticle.sks */; };
+		29FE758F17810BCD00F10205 /* GroundAttackParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 29FE758E17810BCD00F10205 /* GroundAttackParticle.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,7 +54,6 @@
 		2955FE88177795D80046CFA6 /* petal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = petal.png; sourceTree = "<group>"; };
 		2955FE8A177795F80046CFA6 /* GrassAttackParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GrassAttackParticle.sks; sourceTree = "<group>"; };
 		2955FE8B177795F80046CFA6 /* bokeh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bokeh.png; sourceTree = "<group>"; };
-		295B765C177BCEA20039ECB7 /* game-map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "game-map.png"; sourceTree = "<group>"; };
 		29673FFD17690C7100EF207D /* Knockout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Knockout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2967400017690C7100EF207D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2967400217690C7100EF207D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -69,9 +68,6 @@
 		2967401517690C7100EF207D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2967401717690C7100EF207D /* KOViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KOViewController.h; sourceTree = "<group>"; };
 		2967401817690C7100EF207D /* KOViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KOViewController.m; sourceTree = "<group>"; };
-		2967401A17690C7100EF207D /* KOMyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KOMyScene.h; sourceTree = "<group>"; };
-		2967401B17690C7100EF207D /* KOMyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KOMyScene.m; sourceTree = "<group>"; };
-		2967401D17690C7100EF207D /* Spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship.png; sourceTree = "<group>"; };
 		2967401F17690C7100EF207D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2967402517690C7100EF207D /* KnockoutTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KnockoutTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2967402617690C7100EF207D /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -88,9 +84,12 @@
 		2983859C176A718C00D982FD /* KOSharedFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KOSharedFunctions.m; sourceTree = "<group>"; };
 		299C94591776235100380F78 /* KOAttackNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KOAttackNode.h; sourceTree = "<group>"; };
 		299C945A1776235100380F78 /* KOAttackNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KOAttackNode.m; sourceTree = "<group>"; };
+		29A47845177F66BF002932EB /* game-map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "game-map.png"; sourceTree = "<group>"; };
 		29D3448B176910620068C31B /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		29D3448D176912AD0068C31B /* KOBattleScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KOBattleScene.h; sourceTree = "<group>"; };
 		29D3448E176912AD0068C31B /* KOBattleScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KOBattleScene.m; sourceTree = "<group>"; };
+		29FE758C1781086000F10205 /* IceAttackParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = IceAttackParticle.sks; sourceTree = "<group>"; };
+		29FE758E17810BCD00F10205 /* GroundAttackParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GroundAttackParticle.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,11 +156,8 @@
 				2967401F17690C7100EF207D /* Images.xcassets */,
 				2967401117690C7100EF207D /* KOAppDelegate.h */,
 				2967401217690C7100EF207D /* KOAppDelegate.m */,
-				2967401A17690C7100EF207D /* KOMyScene.h */,
-				2967401B17690C7100EF207D /* KOMyScene.m */,
 				2967401417690C7100EF207D /* Main.storyboard */,
 				29C492C51769455C00DD7D0E /* Scenes */,
-				2967401D17690C7100EF207D /* Spaceship.png */,
 				29C492C11769437000DD7D0E /* Sprites */,
 				2967400917690C7100EF207D /* Supporting Files */,
 			);
@@ -171,9 +167,9 @@
 		2967400917690C7100EF207D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				29A47845177F66BF002932EB /* game-map.png */,
 				29D3448B176910620068C31B /* spark.png */,
 				2955FE88177795D80046CFA6 /* petal.png */,
-				295B765C177BCEA20039ECB7 /* game-map.png */,
 				2967400A17690C7100EF207D /* Knockout-Info.plist */,
 				2967400B17690C7100EF207D /* InfoPlist.strings */,
 				2967400E17690C7100EF207D /* main.m */,
@@ -183,6 +179,8 @@
 				2955FE84177792940046CFA6 /* ElectricAttackParticle.sks */,
 				2955FE8A177795F80046CFA6 /* GrassAttackParticle.sks */,
 				2955FE8B177795F80046CFA6 /* bokeh.png */,
+				29FE758C1781086000F10205 /* IceAttackParticle.sks */,
+				29FE758E17810BCD00F10205 /* GroundAttackParticle.sks */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -326,9 +324,10 @@
 				2980CFD817778F2B007D12CA /* WaterAttackParticle.sks in Resources */,
 				29D3448C176910620068C31B /* spark.png in Resources */,
 				2967400D17690C7100EF207D /* InfoPlist.strings in Resources */,
-				295B765D177BCEA20039ECB7 /* game-map.png in Resources */,
+				29A47846177F66BF002932EB /* game-map.png in Resources */,
+				29FE758D1781086000F10205 /* IceAttackParticle.sks in Resources */,
+				29FE758F17810BCD00F10205 /* GroundAttackParticle.sks in Resources */,
 				2967402017690C7100EF207D /* Images.xcassets in Resources */,
-				2967401E17690C7100EF207D /* Spaceship.png in Resources */,
 				2967401617690C7100EF207D /* Main.storyboard in Resources */,
 				2955FE89177795D80046CFA6 /* petal.png in Resources */,
 				2955FE8C177795F80046CFA6 /* GrassAttackParticle.sks in Resources */,
@@ -353,7 +352,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				29D3448F176914830068C31B /* KOBattleScene.m in Sources */,
-				2967401C17690C7100EF207D /* KOMyScene.m in Sources */,
 				2967401917690C7100EF207D /* KOViewController.m in Sources */,
 				2967401317690C7100EF207D /* KOAppDelegate.m in Sources */,
 				299C945B1776235100380F78 /* KOAttackNode.m in Sources */,

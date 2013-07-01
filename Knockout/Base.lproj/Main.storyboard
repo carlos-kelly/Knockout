@@ -17,14 +17,13 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="BJR-ub-TCj">
-                                        <rect key="frame" x="20" y="28" width="160" height="29"/>
+                                        <rect key="frame" x="20" y="28" width="130" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="160" id="jCa-p1-7Ls"/>
+                                            <constraint firstAttribute="width" constant="130" id="jCa-p1-7Ls"/>
                                         </constraints>
                                         <segments>
-                                            <segment title=""/>
                                             <segment title=""/>
                                             <segment title=""/>
                                             <segment title=""/>
