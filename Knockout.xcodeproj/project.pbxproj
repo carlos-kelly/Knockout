@@ -31,6 +31,8 @@
 		29838594176A384200D982FD /* KOElements.m in Sources */ = {isa = PBXBuildFile; fileRef = 29838593176A384200D982FD /* KOElements.m */; };
 		29838595176A3EF100D982FD /* FireAttackParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2967403C17690EB900EF207D /* FireAttackParticle.sks */; };
 		2983859D176A718C00D982FD /* KOSharedFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2983859C176A718C00D982FD /* KOSharedFunctions.m */; };
+		2999A073178613300030DD84 /* RockAttackParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2999A072178613300030DD84 /* RockAttackParticle.sks */; };
+		2999A07B17887CA30030DD84 /* rock-particle4.png in Resources */ = {isa = PBXBuildFile; fileRef = 2999A07A17887CA30030DD84 /* rock-particle4.png */; };
 		299C945B1776235100380F78 /* KOAttackNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 299C945A1776235100380F78 /* KOAttackNode.m */; };
 		29A47846177F66BF002932EB /* game-map.png in Resources */ = {isa = PBXBuildFile; fileRef = 29A47845177F66BF002932EB /* game-map.png */; };
 		29D3448C176910620068C31B /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 29D3448B176910620068C31B /* spark.png */; };
@@ -82,6 +84,8 @@
 		29838593176A384200D982FD /* KOElements.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KOElements.m; sourceTree = "<group>"; };
 		2983859B176A718C00D982FD /* KOSharedFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KOSharedFunctions.h; sourceTree = "<group>"; };
 		2983859C176A718C00D982FD /* KOSharedFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KOSharedFunctions.m; sourceTree = "<group>"; };
+		2999A072178613300030DD84 /* RockAttackParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RockAttackParticle.sks; sourceTree = "<group>"; };
+		2999A07A17887CA30030DD84 /* rock-particle4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rock-particle4.png"; sourceTree = "<group>"; };
 		299C94591776235100380F78 /* KOAttackNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KOAttackNode.h; sourceTree = "<group>"; };
 		299C945A1776235100380F78 /* KOAttackNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KOAttackNode.m; sourceTree = "<group>"; };
 		29A47845177F66BF002932EB /* game-map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "game-map.png"; sourceTree = "<group>"; };
@@ -170,6 +174,7 @@
 				29A47845177F66BF002932EB /* game-map.png */,
 				29D3448B176910620068C31B /* spark.png */,
 				2955FE88177795D80046CFA6 /* petal.png */,
+				2999A07A17887CA30030DD84 /* rock-particle4.png */,
 				2967400A17690C7100EF207D /* Knockout-Info.plist */,
 				2967400B17690C7100EF207D /* InfoPlist.strings */,
 				2967400E17690C7100EF207D /* main.m */,
@@ -181,6 +186,7 @@
 				2955FE8B177795F80046CFA6 /* bokeh.png */,
 				29FE758C1781086000F10205 /* IceAttackParticle.sks */,
 				29FE758E17810BCD00F10205 /* GroundAttackParticle.sks */,
+				2999A072178613300030DD84 /* RockAttackParticle.sks */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -326,6 +332,7 @@
 				2967400D17690C7100EF207D /* InfoPlist.strings in Resources */,
 				29A47846177F66BF002932EB /* game-map.png in Resources */,
 				29FE758D1781086000F10205 /* IceAttackParticle.sks in Resources */,
+				2999A073178613300030DD84 /* RockAttackParticle.sks in Resources */,
 				29FE758F17810BCD00F10205 /* GroundAttackParticle.sks in Resources */,
 				2967402017690C7100EF207D /* Images.xcassets in Resources */,
 				2967401617690C7100EF207D /* Main.storyboard in Resources */,
@@ -333,6 +340,7 @@
 				2955FE8C177795F80046CFA6 /* GrassAttackParticle.sks in Resources */,
 				29838595176A3EF100D982FD /* FireAttackParticle.sks in Resources */,
 				2955FE8D177795F80046CFA6 /* bokeh.png in Resources */,
+				2999A07B17887CA30030DD84 /* rock-particle4.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

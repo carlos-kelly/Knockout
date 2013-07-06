@@ -26,7 +26,7 @@
 
 -(void)createPlayerCharacter {
     SKTexture *playerTexture = [SKTexture textureWithImageNamed:@"PlayerSprite"];
-    KOElement *playerElement = [KOElements grass];
+    KOElement *playerElement = [KOElements rock];
     CGSize playerSize = CGSizeMake(32.0, 32.0);
     
     KOCharacterNode *playerNode = [[KOCharacterNode alloc] initWithTexture:playerTexture

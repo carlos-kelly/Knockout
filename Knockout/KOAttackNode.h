@@ -16,6 +16,7 @@
 #define KOAttackNodeElectric @"electricAttackNode"
 #define KOAttackNodeIce @"iceAttackNode"
 #define KOAttackNodeGround @"groundAttackNode"
+#define KOAttackNodeRock @"rockAttackNode"
 
 #define kAttackDataName @"kAttackDataName"
 #define kAttackDataElement @"kAttackDataElement"
@@ -34,6 +35,7 @@
 +(instancetype)electricAttackNode;
 +(instancetype)iceAttackNode;
 +(instancetype)groundAttackNode;
++(instancetype)rockAttackNode;
 +(instancetype)attackNodeForIdentifier:(NSString *)identifier;
 +(NSArray *)attackIdentifiersForElement:(NSString *)element;
 +(NSDictionary *)attackDataForIdentifier:(NSString *)identifier;

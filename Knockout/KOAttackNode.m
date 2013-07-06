@@ -29,6 +29,9 @@
     else if ([identifier isEqualToString:KOAttackNodeGround])
         return [KOAttackNode groundAttackNode];
     
+    else if ([identifier isEqualToString:KOAttackNodeRock])
+        return [KOAttackNode rockAttackNode];
+    
     else return nil;
 }
 
@@ -57,6 +60,10 @@
         return @{ kAttackDataName: @"Mud Bomb",
                   kAttackDataElement: [KOElements ground] };
     
+    else if ([identifier isEqualToString:KOAttackNodeRock])
+        return @{ kAttackDataName: @"Rock Wrecker",
+                  kAttackDataElement: [KOElements rock] };
+    
     else return nil;
 }
 
@@ -65,7 +72,7 @@
         return @[ KOAttackNodeFire, KOAttackNodeElectric, KOAttackNodeGrass ];
     
     else if ([element isEqualToString:[KOElements grass][kElementName]])
-        return @[ KOAttackNodeGrass, KOAttackNodeGround, KOAttackNodeFire ];
+        return @[ KOAttackNodeGrass, KOAttackNodeGround, KOAttackNodeRock ];
     
     else if ([element isEqualToString:[KOElements water][kElementName]])
         return @[ KOAttackNodeWater, KOAttackNodeIce, KOAttackNodeGround ];
@@ -77,7 +84,10 @@
         return @[ KOAttackNodeElectric, KOAttackNodeIce, KOAttackNodeFire ];
     
     else if ([element isEqualToString:[KOElements ground][kElementName]])
-        return @[ KOAttackNodeGround, KOAttackNodeGrass, KOAttackNodeFire ];
+        return @[ KOAttackNodeGround, KOAttackNodeGrass, KOAttackNodeRock ];
+    
+    else if ([element isEqualToString:[KOElements rock][kElementName]])
+        return @[ KOAttackNodeRock, KOAttackNodeIce, KOAttackNodeElectric ];
                  
     return nil;
 }
@@ -197,6 +207,28 @@
     KOAttackNode *attackNode = [KOAttackNode node];
     SKEmitterNode *emitterNode = [NSKeyedUnarchiver unarchiveObjectWithFile:[[NSBundle mainBundle] pathForResource:@"GroundAttackParticle" ofType:@"sks"]];
     NSDictionary *attackData = [KOAttackNode attackDataForIdentifier:KOAttackNodeGround];
+    
+    attackNode.size = CGSizeMake(16.0, 16.0);
+    attackNode.colorBlendFactor = 1.0;
+    attackNode.blendMode = SKBlendModeAlpha;
+    attackNode.basePower = 70;
+    attackNode.damage = 0.0;
+    attackNode.name = attackData[kAttackDataName];
+    attackNode.element = attackData[kAttackDataElement];
+    attackNode.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:attackNode.size.width / 2.0];
+    attackNode.physicsBody.categoryBitMask = KONodeTypeAttack;
+    attackNode.physicsBody.collisionBitMask = KONodeTypeBarrier;
+    attackNode.emitterNode = emitterNode;
+    
+    [attackNode addChild:emitterNode];
+    
+    return attackNode;
+}
+
++(instancetype)rockAttackNode {
+    KOAttackNode *attackNode = [KOAttackNode node];
+    SKEmitterNode *emitterNode = [NSKeyedUnarchiver unarchiveObjectWithFile:[[NSBundle mainBundle] pathForResource:@"RockAttackParticle" ofType:@"sks"]];
+    NSDictionary *attackData = [KOAttackNode attackDataForIdentifier:KOAttackNodeRock];
     
     attackNode.size = CGSizeMake(16.0, 16.0);
     attackNode.colorBlendFactor = 1.0;

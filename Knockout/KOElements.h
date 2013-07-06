@@ -23,5 +23,6 @@ typedef NSDictionary KOElement;
 +(KOElement *)electric;
 +(KOElement *)ice;
 +(KOElement *)ground;
++(KOElement *)rock;
 
 @end
