@@ -14,7 +14,7 @@
 -(id)initWithSize:(CGSize)aSize {
     if (self = [super initWithSize:aSize]) {
         self.backgroundColor = [SKColor colorWithWhite:0.2 alpha:1.0];
-        self.physicsWorld.gravity = CGPointZero;
+        self.physicsWorld.gravity = CGVectorMake(0, 0);
         self.physicsWorld.contactDelegate = self;
         self.anchorPoint = CGPointMake(0.5, 0.5);
         
@@ -159,7 +159,7 @@
 }
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    if ([touches count] == 1 && !self.playerNode.isMoving) {
+    if ([touches count] == 1 && !_playerNode.isMoving) {
         [touches enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
             UITouch *touch = (UITouch *)obj;
             CGPoint location = [touch locationInNode:self];
@@ -178,11 +178,11 @@
              }];
             
             if (shouldPerformAttack)
-                [self performAttack:[KOAttackNode attackNodeForIdentifier:self.playerNode.attacks[self.attackSegmentedControl.selectedSegmentIndex]]
-                           fromNode:self.playerNode
+                [self performAttack:[KOAttackNode attackNodeForIdentifier:_playerNode.attacks[self.attackSegmentedControl.selectedSegmentIndex]]
+                           fromNode:_playerNode
                          afterDelay:0.0];
             else
-                [self.playerNode moveToPosition:location];
+                [_playerNode moveToPosition:location];
     
         }];
     }
@@ -284,27 +284,17 @@
     [self centerOnNode:_playerNode];
 }
 
--(void)didBeginContact:(SKPhysicsContact *)contact {   
-    KOCharacterNode *targetNode = nil;
-    KOAttackNode *attackNode = nil;
-    
-    if (contact.bodyA.categoryBitMask & KONodeTypeBarrier ||
-        contact.bodyB.categoryBitMask & KONodeTypeBarrier)
-        return;
+-(void)didBeginContact:(SKPhysicsContact *)contact {
+    if (contact.bodyA.categoryBitMask & KONodeTypeAttack || contact.bodyB.categoryBitMask & KONodeTypeAttack) {
+        KOAttackNode *attackNode = contact.bodyA.categoryBitMask & KONodeTypeAttack ? (KOAttackNode *)contact.bodyA.node : (KOAttackNode *)contact.bodyB.node;
+        KOCharacterNode *targetNode = contact.bodyA.categoryBitMask & KONodeTypePlayer || contact.bodyA.categoryBitMask & KONodeTypeOpponent ? (KOCharacterNode *)contact.bodyA.node : (KOCharacterNode *)contact.bodyB.node;
         
-    if (contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask) {
-        targetNode = (KOCharacterNode *)contact.bodyA.node;
-        attackNode = (KOAttackNode *)contact.bodyB.node;
-    } else {
-        targetNode = (KOCharacterNode *)contact.bodyB.node;
-        attackNode = (KOAttackNode *)contact.bodyA.node;
-    }
-    
-    if (targetNode.physicsBody.categoryBitMask & attackNode.physicsBody.contactTestBitMask) {
-        [targetNode applyDamage:attackNode.damage];
         
-        if (targetNode.physicsBody.categoryBitMask & KONodeTypePlayer) {
-            self.playerHealthBar.progress = (_playerNode.currentHitPoints - attackNode.damage) / _playerNode.hitPoints;
+        if (targetNode.physicsBody.categoryBitMask & attackNode.physicsBody.contactTestBitMask) {
+            [targetNode applyDamage:attackNode.damage];
+            if (targetNode.physicsBody.categoryBitMask & KONodeTypePlayer) {
+                self.playerHealthBar.progress = (_playerNode.currentHitPoints - attackNode.damage) / _playerNode.hitPoints;
+            }
         }
     }
 }
